@@ -1,0 +1,109 @@
+plugins {
+    id 'org.springframework.boot' version '2.4.2'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id 'java'
+}
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+    compile.exclude module: "spring-boot-starter-tomcat"
+    all {
+        // log4j2를 사용하기 위해, spring의 default인 logback을 제외
+        exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
+        resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
+    }
+}
+
+// 공통모듈 - 로깅 적용
+repositories {
+    mavenCentral()
+    maven {
+        credentials {
+            username project.nexusUsername
+            password project.nexusPassword
+        }
+        url project.nexusSnapshotUrl
+    }
+}
+
+ext {
+    version_swagger = '2.9.2'
+    version_jetty = '1.5.7.RELEASE'
+    version_java = '1.8'
+    version_validation = '2.3.7.RELEASE'
+    version_modelmapper = '2.3.0'
+    version_slf4j = '1.7.30'
+    project_build_sourceEncoding = 'UTF-8'
+}
+
+group = project.properties["app.group"]
+version = project.properties["app.version"]
+sourceCompatibility = "${version_java}" as Object
+
+
+apply plugin: 'maven'
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            repository(url: project.nexusReleaseUrl) {
+                authentication(userName: project.nexusUsername, password: project.nexusPassword)
+            }
+            snapshotRepository(url: project.nexusSnapshotUrl) {
+                authentication(userName: project.nexusUsername, password: project.nexusPassword)
+            }
+        }
+    }
+}
+
+// 기본
+//repositories {
+//    mavenCentral()
+//}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.mariadb.jdbc:mariadb-java-client'
+//    implementation group: 'org.bgee.log4jdbc-log4j2', name: 'log4jdbc-log4j2-jdbc4.1', version: '1.16'
+
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-jetty', version: "${version_jetty}"
+
+    implementation group: 'org.modelmapper', name: 'modelmapper', version: "${version_modelmapper}"
+
+    implementation group: 'io.springfox', name: 'springfox-swagger2', version: "${version_swagger}"
+    implementation group: 'io.springfox', name: 'springfox-swagger-ui', version: "${version_swagger}"
+
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-validation', version: "${version_validation}"
+    implementation 'org.projectlombok:lombok:1.18.16'
+
+    implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.0'
+
+    compileOnly 'org.projectlombok:lombok'
+
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+    runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
+
+    annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+    annotationProcessor 'org.projectlombok:lombok'
+
+    implementation group: 'org.slf4j', name: 'log4j-over-slf4j', version: "${version_slf4j}"
+
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+    testImplementation('org.springframework.boot:spring-boot-starter-test') {
+        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+    }
+
+    // 공통 모듈
+    implementation group:'log.munzi', name:'munzi-log', version:'0.0.4-SNAPSHOT'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+bootJar {
+    launchScript()
+}

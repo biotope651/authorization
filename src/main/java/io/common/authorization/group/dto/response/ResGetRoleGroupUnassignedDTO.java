@@ -32,7 +32,7 @@ public class ResGetRoleGroupUnassignedDTO {
     public static class GetRoleGroupUnAssignedJoin {
 
         @ApiModelProperty(value="롤 그룹 조인 ID")
-        private Long roleGroupJoinId;
+        private Long id;
 
         @ApiModelProperty(value="롤 그룹 ID")
         private Long roleGroupId;
@@ -59,7 +59,7 @@ public class ResGetRoleGroupUnassignedDTO {
         private Long mngUserId;
 
         public GetRoleGroupUnAssignedJoin(RoleGroupAuth roleGroupAuth) {
-            this.roleGroupJoinId = null;
+            this.id = null;
             this.roleGroupId = null;
             this.companyId = roleGroupAuth.getCompany() == null ? null : roleGroupAuth.getCompany().getId();
             this.roleGroupAuthId = roleGroupAuth.getId();

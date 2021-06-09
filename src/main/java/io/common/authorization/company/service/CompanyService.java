@@ -59,7 +59,7 @@ public class CompanyService {
     @Transactional
     public Long updateCompany(ReqCompanyDTO.UpdateCompanyDTO reqCompanyDTO) {
 
-        Company company = companyRepository.findById(reqCompanyDTO.getCompanyId())
+        Company company = companyRepository.findById(reqCompanyDTO.getId())
                 .orElseThrow(() -> new ErrorException(ErrorCode.RESOURCE_ID_NOT_VALID));
 
         company.updateCompanyInfo(reqCompanyDTO);

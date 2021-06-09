@@ -68,14 +68,14 @@ public class UserController {
             notes = "유저 상세 정보를 조회한다."
     )
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "userId", value = "유저 ID", required = false, dataType = "string")
+            @ApiImplicitParam(name = "id", value = "유저 ID", required = false, dataType = "string")
     })
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "유저 상세 정보", response = ResGetUsersDTO.GetUser.class)
     })
-    @GetMapping("/{userId}")
+    @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public ResGetUsersDTO.GetUser getUserInfo(@Validated @PathVariable("userId") Long userId) {
+    public ResGetUsersDTO.GetUser getUserInfo(@Validated @PathVariable("id") Long userId) {
 
         return userService.getUserInfo(userId);
     }

@@ -14,5 +14,5 @@ import javax.validation.constraints.NotNull;
 public class ResUpdateCompanyUserDTO {
     @ApiModelProperty(value="회사 유저 ID")
     @NotNull
-    private Long companyUserId;
+    private Long id;
 }

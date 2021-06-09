@@ -32,6 +32,6 @@ public class ReqRoleGroupJoinDTO {
     public static class DeleteRoleGroupJoinDTO {
         @ApiModelProperty(value="롤 그룹 조인 ID", required = true)
         @NotNull
-        private Long roleGroupJoinId;
+        private Long id;
     }
 }

@@ -15,5 +15,5 @@ public class ResUpdateProgramDTO {
 
     @ApiModelProperty(value="프로그램 ID")
     @NotNull
-    private Long programId;
+    private Long id;
 }

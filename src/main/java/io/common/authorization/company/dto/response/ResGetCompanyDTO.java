@@ -40,7 +40,7 @@ public class ResGetCompanyDTO {
     public static class GetCompany {
 
         @ApiModelProperty(value="회사 ID")
-        private Long companyId;
+        private Long id;
 
         @ApiModelProperty(value="회사명")
         private String companyName;
@@ -82,7 +82,7 @@ public class ResGetCompanyDTO {
         private LocalDateTime createDt;
 
         public GetCompany(Company company) {
-            this.companyId = company.getId();
+            this.id = company.getId();
             this.companyName = company.getCompanyName();
             this.businessNo = company.getBusinessNo();
             this.businessUrl = company.getBusinessUrl();

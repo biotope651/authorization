@@ -55,6 +55,6 @@ public class ReqResourceMenuDTO {
     public static class UpdateMenuDTO extends ReqResourceMenuDTO.CreateMenuDTO {
         @ApiModelProperty(value="메뉴 ID", required = true)
         @NotNull
-        private Long menuId;
+        private Long id;
     }
 }

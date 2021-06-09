@@ -37,7 +37,7 @@ public class ResGetResourceAuthDTO {
     public static class GetResourceAuth {
 
         @ApiModelProperty(value="리소스 권한 ID")
-        private Long resourceAuthId;
+        private Long id;
 
         @ApiModelProperty(value="리소스 메뉴 ID")
         private Long resourceMenuId;
@@ -64,7 +64,7 @@ public class ResGetResourceAuthDTO {
         private Long mngUserId;
 
         public GetResourceAuth(ResourceAuth resourceAuth) {
-            this.resourceAuthId = resourceAuth.getId();
+            this.id = resourceAuth.getId();
             this.resourceMenuId = resourceAuth.getResourceMenu() == null ? null : resourceAuth.getResourceMenu().getId();
             this.programId = resourceAuth.getProgram() == null ? null : resourceAuth.getProgram().getId();
             this.roleGroupAuthId = resourceAuth.getRoleGroupAuth() == null ? null : resourceAuth.getRoleGroupAuth().getId();

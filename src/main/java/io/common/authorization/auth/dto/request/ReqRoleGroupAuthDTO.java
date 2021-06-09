@@ -41,6 +41,6 @@ public class ReqRoleGroupAuthDTO {
     public static class UpdateRoleGroupAuthDTO extends CreateRoleGroupAuthDTO{
         @ApiModelProperty(value="롤 그룹 권한 ID", required = true)
         @NotNull
-        private Long roleGroupAuthId;
+        private Long id;
     }
 }

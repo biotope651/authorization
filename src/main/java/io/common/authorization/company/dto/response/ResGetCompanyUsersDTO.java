@@ -44,7 +44,7 @@ public class ResGetCompanyUsersDTO {
     public static class GetCompanyUsers {
 
         @ApiModelProperty(value="회사 ID")
-        private Long companyId;
+        private Long id;
 
         @ApiModelProperty(value="유저 ID")
         private Long userId;
@@ -90,7 +90,7 @@ public class ResGetCompanyUsersDTO {
 
 
         public GetCompanyUsers(CompanyUser companyUser) {
-            this.companyId = companyUser.getCompany() == null ? null : companyUser.getCompany().getId();
+            this.id = companyUser.getCompany() == null ? null : companyUser.getCompany().getId();
             User user = companyUser.getUser() == null ? null : companyUser.getUser();
             this.userId = user.getId();
             this.roleGroupId = user.getRoleGroup() == null ? null : user.getRoleGroup().getId();

@@ -62,14 +62,14 @@ public class CompanyController {
             notes = "회사 상세 정보를 조회한다."
     )
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "companyId", value = "회사 ID", required = false, dataType = "string")
+            @ApiImplicitParam(name = "id", value = "회사 ID", required = false, dataType = "string")
     })
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "회사 상세 정보", response = ResGetCompanyDTO.GetCompany.class)
     })
-    @GetMapping("/{companyId}")
+    @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public ResGetCompanyDTO.GetCompany getCompanyInfo(@Validated @PathVariable("companyId") Long companyId) {
+    public ResGetCompanyDTO.GetCompany getCompanyInfo(@Validated @PathVariable("id") Long companyId) {
 
         return companyService.getCompanyInfo(companyId);
     }

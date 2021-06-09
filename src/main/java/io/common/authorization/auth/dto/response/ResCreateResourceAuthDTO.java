@@ -14,5 +14,5 @@ import javax.validation.constraints.NotNull;
 public class ResCreateResourceAuthDTO {
     @ApiModelProperty(value="리소스 권한 ID")
     @NotNull
-    private Long resourceAuthId;
+    private Long id;
 }

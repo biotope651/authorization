@@ -42,7 +42,7 @@ public class ResGetUsersDTO {
     public static class GetUser {
 
         @ApiModelProperty(value="유저 ID")
-        private Long userId;
+        private Long id;
 
         @ApiModelProperty(value="롤 그룹 ID")
         private Long roleGroupId;
@@ -84,7 +84,7 @@ public class ResGetUsersDTO {
         private LocalDateTime createDt;
 
         public GetUser(User user) {
-            this.userId = user.getId();
+            this.id = user.getId();
             this.roleGroupId = user.getRoleGroup() == null ? null : user.getRoleGroup().getId();
             this.loginId = user.getLoginId();
             this.name = user.getName();

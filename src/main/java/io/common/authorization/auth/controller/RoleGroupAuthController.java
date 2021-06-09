@@ -75,14 +75,14 @@ public class RoleGroupAuthController {
             notes = "롤 그룹 권한 상세 정보를 조회한다."
     )
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "roleGroupAuthId", value = "롤 그룹 권한 ID", required = false, dataType = "string")
+            @ApiImplicitParam(name = "id", value = "롤 그룹 권한 ID", required = false, dataType = "string")
     })
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "롤 그룹 권한 상세 정보", response = ResGetRoleGroupAuthDTO.GetRoleGroupAuth.class)
     })
-    @GetMapping("/{roleGroupAuthId}")
+    @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public ResGetRoleGroupAuthDTO.GetRoleGroupAuth getRoleGroupAuthInfo(@Validated @PathVariable("roleGroupAuthId") Long roleGroupAuthId) {
+    public ResGetRoleGroupAuthDTO.GetRoleGroupAuth getRoleGroupAuthInfo(@Validated @PathVariable("id") Long roleGroupAuthId) {
 
         return roleGroupAuthService.getRoleGroupAuthInfo(roleGroupAuthId);
     }

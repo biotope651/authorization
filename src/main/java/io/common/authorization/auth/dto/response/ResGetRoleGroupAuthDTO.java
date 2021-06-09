@@ -44,7 +44,7 @@ public class ResGetRoleGroupAuthDTO {
     public static class GetRoleGroupAuth {
 
         @ApiModelProperty(value="롤 그룹 권한 ID")
-        private Long roleGroupAuthId;
+        private Long id;
 
         @ApiModelProperty(value="회사 ID")
         private Long companyId;
@@ -68,7 +68,7 @@ public class ResGetRoleGroupAuthDTO {
         private Long mngUserId;
 
         public GetRoleGroupAuth(RoleGroupAuth roleGroupAuth) {
-            this.roleGroupAuthId = roleGroupAuth.getId();
+            this.id = roleGroupAuth.getId();
             this.companyId = roleGroupAuth.getCompany() == null ? null : roleGroupAuth.getCompany().getId();
             this.programId = roleGroupAuth.getProgram() == null ? null : roleGroupAuth.getProgram().getId();
             this.roleGroupAuthName = roleGroupAuth.getRoleGroupAuthName();

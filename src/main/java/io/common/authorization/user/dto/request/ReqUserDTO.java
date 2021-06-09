@@ -75,7 +75,7 @@ public class ReqUserDTO {
     public static class UpdateUserDTO extends CreateUserDTO {
         @ApiModelProperty(value="유저 ID", required = true)
         @NotNull
-        private Long userId;
+        private Long id;
     }
 
     // update status
@@ -85,7 +85,7 @@ public class ReqUserDTO {
     public static class UpdateUserStatusDTO {
         @ApiModelProperty(value="유저 ID", required = true)
         @NotNull
-        private Long userId;
+        private Long id;
 
         @ApiModelProperty(value="사용자 상태", required = true)
         @NotNull

@@ -14,5 +14,5 @@ import javax.validation.constraints.NotNull;
 public class ResCreateRoleGroupDTO {
     @ApiModelProperty(value="롤 그룹 ID")
     @NotNull
-    private Long roleGroupId;
+    private Long id;
 }

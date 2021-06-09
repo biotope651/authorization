@@ -14,5 +14,5 @@ import javax.validation.constraints.NotNull;
 public class ResCreateUserDTO {
     @ApiModelProperty(value="유저 ID")
     @NotNull
-    private Long userId;
+    private Long id;
 }

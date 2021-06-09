@@ -21,8 +21,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.RequestBody;
 
 @Slf4j
 @Service
@@ -129,7 +127,7 @@ public class RoleGroupAuthService {
     @Transactional
     public Long updateRoleGroupAuth(ReqRoleGroupAuthDTO.UpdateRoleGroupAuthDTO reqRoleGroupAuthDTO) {
 
-        RoleGroupAuth roleGroupAuth = roleGroupAuthRepository.findById(reqRoleGroupAuthDTO.getRoleGroupAuthId())
+        RoleGroupAuth roleGroupAuth = roleGroupAuthRepository.findById(reqRoleGroupAuthDTO.getId())
                 .orElseThrow(() -> new ErrorException(ErrorCode.RESOURCE_ID_NOT_VALID));
 
         // Company 조회

@@ -14,5 +14,5 @@ import javax.validation.constraints.NotNull;
 public class ResCreateResourceMenuDTO {
     @ApiModelProperty(value="메뉴 ID")
     @NotNull
-    private Long menuId;
+    private Long id;
 }

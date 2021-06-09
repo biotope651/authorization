@@ -77,7 +77,7 @@ public class RoleGroupService {
     @Transactional
     public Long updateRoleGroup(ReqRoleGroupDTO.UpdateRoleGroupDTO reqRoleGroupDTO) {
 
-        RoleGroup roleGroup = roleGroupRepository.findById(reqRoleGroupDTO.getRoleGroupId())
+        RoleGroup roleGroup = roleGroupRepository.findById(reqRoleGroupDTO.getId())
                 .orElseThrow(() -> new ErrorException(ErrorCode.RESOURCE_ID_NOT_VALID));
 
         // 회사 ID가 있는 경우 - 회사 전용 롤 그룹

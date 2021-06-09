@@ -51,6 +51,6 @@ public class ReqRoleGroupDTO {
     public static class UpdateRoleGroupDTO extends CreateRoleGroupDTO {
         @ApiModelProperty(value="회사 ID", required = true)
         @NotNull
-        private Long roleGroupId;
+        private Long id;
     }
 }

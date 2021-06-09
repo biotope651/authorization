@@ -101,7 +101,7 @@ public class ResourceMenuService {
     @Transactional
     public Long updateResourceMenu(ReqResourceMenuDTO.UpdateMenuDTO reqResourceMenuDTO) {
 
-        ResourceMenu resourceMenu = resourceMenuRepository.findById(reqResourceMenuDTO.getMenuId())
+        ResourceMenu resourceMenu = resourceMenuRepository.findById(reqResourceMenuDTO.getId())
                 .orElseThrow(() -> new ErrorException(ErrorCode.RESOURCE_ID_NOT_VALID));
 
         // Program 셋팅

@@ -72,6 +72,6 @@ public class ReqCompanyDTO {
     public static class UpdateCompanyDTO extends CreateCompanyDTO {
         @ApiModelProperty(value="회사 ID", required = true)
         @NotNull
-        private Long companyId;
+        private Long id;
     }
 }

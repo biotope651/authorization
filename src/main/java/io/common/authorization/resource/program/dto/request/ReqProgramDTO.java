@@ -45,6 +45,6 @@ public class ReqProgramDTO {
     public static class UpdateProgramDTO extends CreateProgramDTO {
         @ApiModelProperty(value="프로그램명 ID", required = true)
         @NotNull
-        private Long programId;
+        private Long id;
     }
 }

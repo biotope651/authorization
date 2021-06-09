@@ -71,15 +71,15 @@ public class RoleGroupJoinService {
 
     /**
      * 롤 그룹 조인 해제
-     * @param deleteRoleGroupJoinDTO
+     * @param roleGroupJoinId
      * @return
      */
     @Transactional
-    public boolean deleteRoleGroupJoin(ReqRoleGroupJoinDTO.DeleteRoleGroupJoinDTO deleteRoleGroupJoinDTO) {
+    public boolean deleteRoleGroupJoin(Long roleGroupJoinId) {
 
-        roleGroupJoinRepository.deleteById(deleteRoleGroupJoinDTO.getRoleGroupJoinId());
+        roleGroupJoinRepository.deleteById(roleGroupJoinId);
 
-        RoleGroupJoin roleGroupJoin = roleGroupJoinRepository.findById(deleteRoleGroupJoinDTO.getRoleGroupJoinId())
+        RoleGroupJoin roleGroupJoin = roleGroupJoinRepository.findById(roleGroupJoinId)
                 .orElse(null);
 
         boolean result = false;

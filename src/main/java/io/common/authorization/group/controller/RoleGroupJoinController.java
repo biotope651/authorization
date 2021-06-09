@@ -60,15 +60,15 @@ public class RoleGroupJoinController {
             notes = "롤 그룹, 롤 그룹 권한 맵핑을 해제한다."
     )
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "roleGroupJoinId", value = "롤 그룹 조인 ID", required = false, dataType = "string", paramType = "query")
+            @ApiImplicitParam(name = "id", value = "롤 그룹 조인 ID", required = false, dataType = "string", paramType = "query")
     })
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "성공/실패", response = Boolean.class)
     })
-    @DeleteMapping
+    @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public Boolean deleteRoleGroupAuthMapping(ReqRoleGroupJoinDTO.DeleteRoleGroupJoinDTO deleteRoleGroupJoinDTO) {
-        return roleGroupJoinService.deleteRoleGroupJoin(deleteRoleGroupJoinDTO);
+    public Boolean deleteRoleGroupAuthMapping(@Validated @PathVariable("id") Long roleGroupJoinId) {
+        return roleGroupJoinService.deleteRoleGroupJoin(roleGroupJoinId);
     }
 
 }

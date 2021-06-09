@@ -39,7 +39,7 @@ public class ResGetResourcesMenuDTO {
     public static class GetMenus {
 
         @ApiModelProperty(value="메뉴 ID", required = true)
-        private Long menuId;
+        private Long id;
 
         @ApiModelProperty(value="프로그램 ID", required = true)
         private Long programId;
@@ -66,7 +66,7 @@ public class ResGetResourcesMenuDTO {
         private Long parent_menu_id;
 
         public GetMenus(ResourceMenu resourceMenu) {
-            this.menuId = resourceMenu.getId();
+            this.id = resourceMenu.getId();
             this.programId = resourceMenu.getProgram() == null ? null : resourceMenu.getProgram().getId();
             this.menuName = resourceMenu.getMenuName();
             this.menuUrl = resourceMenu.getMenuUrl();

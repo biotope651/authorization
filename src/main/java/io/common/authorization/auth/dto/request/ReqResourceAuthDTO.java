@@ -46,6 +46,6 @@ public class ReqResourceAuthDTO {
     public static class UpdateResourceAuthDTO extends CreateResourceAuthDTO {
         @ApiModelProperty(value="리소스 권한 ID", required = true)
         @NotNull
-        private Long resourceAuthId;
+        private Long id;
     }
 }

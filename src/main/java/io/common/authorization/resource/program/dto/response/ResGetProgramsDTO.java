@@ -37,7 +37,7 @@ public class ResGetProgramsDTO {
     public static class GetPrograms {
 
         @ApiModelProperty(value="프로그램명 ID", required = true)
-        private Long programId;
+        private Long id;
 
         @ApiModelProperty(value="프로그램명 (KR)", required = true)
         private String programNameKr;
@@ -61,7 +61,7 @@ public class ResGetProgramsDTO {
         private LocalDateTime updateDt;
 
         public GetPrograms(Program program) {
-            this.programId = program.getId();
+            this.id = program.getId();
             this.programNameKr = program.getProgramNameKr();
             this.programNameEn = program.getProgramNameEn();
             this.programCategory = program.getProgramCategory();

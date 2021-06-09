@@ -92,7 +92,7 @@ public class UserService {
     @Transactional
     public Long updateUser(ReqUserDTO.UpdateUserDTO reqUserDTO) {
 
-        User user = userRepository.findById(reqUserDTO.getUserId())
+        User user = userRepository.findById(reqUserDTO.getId())
                 .orElseThrow(() -> new ErrorException(ErrorCode.RESOURCE_ID_NOT_VALID));
 
         // RoleGroup 셋팅
@@ -124,7 +124,7 @@ public class UserService {
      */
     @Transactional
     public Long updateUserStatus(ReqUserDTO.UpdateUserStatusDTO reqUserDTO) {
-        User user = userRepository.findById(reqUserDTO.getUserId())
+        User user = userRepository.findById(reqUserDTO.getId())
                 .orElseThrow(() -> new ErrorException(ErrorCode.RESOURCE_ID_NOT_VALID));
 
         // 사용자 상태 변경

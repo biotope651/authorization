@@ -92,7 +92,7 @@ public class ResourceAuthService {
     @Transactional
     public Long updateResourceAuth(ReqResourceAuthDTO.UpdateResourceAuthDTO reqResourceAuthDTO) {
 
-        ResourceAuth resourceAuth = resourceAuthRepository.findById(reqResourceAuthDTO.getResourceAuthId())
+        ResourceAuth resourceAuth = resourceAuthRepository.findById(reqResourceAuthDTO.getId())
                 .orElseThrow(() -> new ErrorException(ErrorCode.RESOURCE_ID_NOT_VALID));
 
         resourceAuth.updateResourceAuth(reqResourceAuthDTO);

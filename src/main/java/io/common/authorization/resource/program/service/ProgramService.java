@@ -75,7 +75,7 @@ public class ProgramService {
     @Transactional
     public Long updateProgram(ReqProgramDTO.UpdateProgramDTO reqProgramDTO) {
 
-        Program program = programRepository.findById(reqProgramDTO.getProgramId())
+        Program program = programRepository.findById(reqProgramDTO.getId())
                 .orElseThrow(() -> new ErrorException(ErrorCode.RESOURCE_ID_NOT_VALID));
 
         // 변경 값 셋팅

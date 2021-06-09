@@ -18,7 +18,7 @@ public class ReqCompanyUserDTO {
         @NotNull
         private Long companyId;
 
-        @ApiModelProperty(value="유저 ID")
+        @ApiModelProperty(value="마지막 수정 유저 ID")
         @NotNull
         private Long userId;
     }
@@ -29,6 +29,6 @@ public class ReqCompanyUserDTO {
     public static class UpdateCompanyUserDTO extends CreateCompanyUserDTO {
         @ApiModelProperty(value="회사 유저 ID", required = true)
         @NotNull
-        private Long companyUserId;
+        private Long id;
     }
 }

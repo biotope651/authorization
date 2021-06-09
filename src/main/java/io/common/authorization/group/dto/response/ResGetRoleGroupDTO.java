@@ -45,7 +45,7 @@ public class ResGetRoleGroupDTO {
     public static class GetRoleGroups {
 
         @ApiModelProperty(value="롤 그룹 ID")
-        private Long roleGroupId;
+        private Long id;
 
         @ApiModelProperty(value="롤 그룹명")
         @NotNull
@@ -76,7 +76,7 @@ public class ResGetRoleGroupDTO {
         private Long mngUserId;
 
         public GetRoleGroups(RoleGroup roleGroup) {
-            this.roleGroupId = roleGroup.getId();
+            this.id = roleGroup.getId();
             this.roleGroupName = roleGroup.getRoleGroupName();
             this.roleGroupStatus = roleGroup.getRoleGroupStatus();
             this.isDefault = roleGroup.getIsDefault();

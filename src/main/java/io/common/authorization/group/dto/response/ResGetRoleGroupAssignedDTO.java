@@ -33,7 +33,7 @@ public class ResGetRoleGroupAssignedDTO {
     public static class GetRoleGroupAssignedJoin {
 
         @ApiModelProperty(value="롤 그룹 조인 ID")
-        private Long roleGroupJoinId;
+        private Long id;
 
         @ApiModelProperty(value="롤 그룹 ID")
         private Long roleGroupId;
@@ -60,7 +60,7 @@ public class ResGetRoleGroupAssignedDTO {
         private Long mngUserId;
 
         public GetRoleGroupAssignedJoin(RoleGroupJoin roleGroupJoin) {
-            this.roleGroupJoinId =roleGroupJoin.getId();
+            this.id =roleGroupJoin.getId();
             this.roleGroupId = roleGroupJoin.getRoleGroup() == null ? null : roleGroupJoin.getRoleGroup().getId();
             this.companyId = roleGroupJoin.getCompany() == null ? null : roleGroupJoin.getCompany().getId();
             // RoleGroupAuth 필드만 모아서 셋팅

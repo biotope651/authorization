@@ -65,14 +65,14 @@ public class GroupController {
             notes = "롤 그룹 상세 정보를 조회한다."
     )
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "roleGroupId", value = "롤 그룹 ID", required = false, dataType = "string")
+            @ApiImplicitParam(name = "id", value = "롤 그룹 ID", required = false, dataType = "string")
     })
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "롤 그룹 상세 정보", response = ResGetRoleGroupDTO.GetRoleGroups.class)
     })
-    @GetMapping("/{roleGroupId}")
+    @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public ResGetRoleGroupDTO.GetRoleGroups getRoleGroupInfo(@Validated @PathVariable("roleGroupId") Long roleGroupId) {
+    public ResGetRoleGroupDTO.GetRoleGroups getRoleGroupInfo(@Validated @PathVariable("id") Long roleGroupId) {
 
         return roleGroupService.getRoleGroupInfo(roleGroupId);
     }

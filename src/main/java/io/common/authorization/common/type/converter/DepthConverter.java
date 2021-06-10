@@ -5,15 +5,15 @@ import io.common.authorization.common.type.Depth;
 import javax.persistence.AttributeConverter;
 import java.util.stream.Stream;
 
-public class DepthConverter implements AttributeConverter<Depth, String> {
+public class DepthConverter implements AttributeConverter<Depth, Integer> {
     @Override
-    public String convertToDatabaseColumn(Depth depth) {
+    public Integer convertToDatabaseColumn(Depth depth) {
         if (depth == null) return null;
         return depth.getValue();
     }
 
     @Override
-    public Depth convertToEntityAttribute(String value) {
+    public Depth convertToEntityAttribute(Integer value) {
         if (value == null) return null;
 
         return Stream.of(Depth.values())

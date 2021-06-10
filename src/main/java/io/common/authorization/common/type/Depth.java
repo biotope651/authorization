@@ -13,21 +13,21 @@ import java.util.Arrays;
 @Getter
 @AllArgsConstructor
 public enum Depth {
-    FIRST("First","First"),
-    SECOND("Second", "Second");
+    FIRST(1,"First"),
+    SECOND(2, "Second");
 
-    private String value;
+    private Integer value;
     private String description;
 
     @JsonCreator
-    public static Depth enumOf(String value) {
+    public static Depth enumOf(Integer value) {
         return Arrays.stream(Depth.values())
                 .filter(t -> t.getValue().equals(value))
                 .findAny().orElse(null);
     }
 
     @JsonValue
-    public String getValue() {
+    public Integer getValue() {
         return value;
     }
 }

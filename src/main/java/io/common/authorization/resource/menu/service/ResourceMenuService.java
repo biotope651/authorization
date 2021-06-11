@@ -1,9 +1,11 @@
 package io.common.authorization.resource.menu.service;
 
+import io.common.authorization.common.type.Depth;
 import io.common.authorization.common.util.PageRequest;
 import io.common.authorization.error.ErrorCode;
 import io.common.authorization.error.ErrorException;
 import io.common.authorization.resource.menu.dto.request.ReqResourceMenuDTO;
+import io.common.authorization.resource.menu.dto.response.ResGetDepthResourceMenuDTO;
 import io.common.authorization.resource.menu.dto.response.ResGetResourcesMenuDTO;
 import io.common.authorization.resource.menu.entity.ResourceMenu;
 import io.common.authorization.resource.menu.repository.ResourceMenuRepository;
@@ -19,6 +21,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Slf4j
 @Service
@@ -131,5 +135,19 @@ public class ResourceMenuService {
         }
 
         return resourceMenu.getId();
+    }
+
+    /**
+     * 메뉴 레벨별 리스트 조회
+     * @param menuLevel
+     * @return
+     */
+    public ResGetDepthResourceMenuDTO getDepthResourceMenus(Long programId, Integer menuLevel) {
+        // Program 셋팅
+        Program program = programRepository.findById(programId)
+                .orElseThrow(() -> new ErrorException(ErrorCode.RESOURCE_ID_NOT_VALID));
+
+        List<ResourceMenu> menuList = resourceMenuRepository.findByProgramAndMenuLevelOrderByMenuName(program, Depth.enumOf(menuLevel));
+        return new ResGetDepthResourceMenuDTO(menuList);
     }
 }

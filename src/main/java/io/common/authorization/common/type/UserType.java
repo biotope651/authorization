@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-import java.util.Arrays;
+import java.util.*;
 
 /**
  * 사용자 타입
@@ -31,5 +31,17 @@ public enum UserType {
     @JsonValue
     public String getValue() {
         return value;
+    }
+
+    public static List<Map> getEnumToListMap() {
+        List<Map> resultList = new ArrayList<>();
+        for(UserType type : UserType.values()) {
+            HashMap<String, String> map = new HashMap<>();
+            map.put("value",type.getValue());
+            map.put("description",type.getDescription());
+            resultList.add(map);
+        }
+
+        return resultList;
     }
 }

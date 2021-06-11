@@ -1,9 +1,11 @@
 package io.common.authorization.resource.program.service;
 
+import io.common.authorization.common.type.ActiveStatus;
 import io.common.authorization.common.util.PageRequest;
 import io.common.authorization.error.ErrorCode;
 import io.common.authorization.error.ErrorException;
 import io.common.authorization.resource.program.dto.request.ReqProgramDTO;
+import io.common.authorization.resource.program.dto.response.ResGetProgramSelectBoxDTO;
 import io.common.authorization.resource.program.dto.response.ResGetProgramsDTO;
 import io.common.authorization.resource.program.entity.Program;
 import io.common.authorization.resource.program.repository.ProgramRepository;
@@ -16,6 +18,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 @Transactional(readOnly = true)
@@ -89,5 +93,16 @@ public class ProgramService {
         }
 
         return program.getId();
+    }
+
+    /**
+     * 프로그램 리스트 조회
+     * @return
+     */
+    public ResGetProgramSelectBoxDTO getProgramSelectBox() {
+
+        List<Program> programList = programRepository.findByProgramStatusOrderById(ActiveStatus.ACTIVE);
+
+        return new ResGetProgramSelectBoxDTO(programList);
     }
 }

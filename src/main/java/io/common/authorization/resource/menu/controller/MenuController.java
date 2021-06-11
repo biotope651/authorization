@@ -2,6 +2,7 @@ package io.common.authorization.resource.menu.controller;
 
 import io.common.authorization.resource.menu.dto.request.ReqResourceMenuDTO;
 import io.common.authorization.resource.menu.dto.response.ResCreateResourceMenuDTO;
+import io.common.authorization.resource.menu.dto.response.ResGetDepthResourceMenuDTO;
 import io.common.authorization.resource.menu.dto.response.ResGetResourcesMenuDTO;
 import io.common.authorization.resource.menu.dto.response.ResUpdateResourceMenuDTO;
 import io.common.authorization.resource.menu.service.ResourceMenuService;
@@ -73,5 +74,24 @@ public class MenuController {
         long menuId = resourceMenuService.updateResourceMenu(reqMenuDTO);
 
         return new ResUpdateResourceMenuDTO(menuId);
+    }
+
+    @ApiOperation(
+            value = "depth별 메뉴 리스트 조회",
+            notes = "depth별 메뉴 리스트를 조회한다."
+    )
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "programId", value = "프로그램 ID", required = false, dataType = "string", paramType = "query"),
+            @ApiImplicitParam(name = "menuLevel", value = "메뉴 레벨", required = true, dataType = "string")
+    })
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "메뉴 리스트", response = ResGetDepthResourceMenuDTO.class)
+    })
+    @GetMapping("/depth")
+    @ResponseStatus(HttpStatus.OK)
+    public ResGetDepthResourceMenuDTO getDepthMenuList(@RequestParam(value = "programId", required = false) Long programId,
+                                                         @RequestParam(value = "menuLevel", required = true) Integer menuLevel) {
+
+        return resourceMenuService.getDepthResourceMenus(programId, menuLevel);
     }
 }

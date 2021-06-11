@@ -7,6 +7,7 @@ import io.common.authorization.company.dto.response.ResUpdateCompanyDTO;
 import io.common.authorization.group.dto.request.ReqRoleGroupDTO;
 import io.common.authorization.group.dto.response.ResCreateRoleGroupDTO;
 import io.common.authorization.group.dto.response.ResGetRoleGroupDTO;
+import io.common.authorization.group.dto.response.ResGetRoleGroupSelectboxDTO;
 import io.common.authorization.group.service.RoleGroupService;
 import io.swagger.annotations.*;
 import lombok.RequiredArgsConstructor;
@@ -92,5 +93,22 @@ public class GroupController {
         long roleGroupId = roleGroupService.updateRoleGroup(reqRoleGroupDTO);
 
         return new ReqRoleGroupDTO.UpdateRoleGroupDTO(roleGroupId);
+    }
+
+    @ApiOperation(
+            value = "롤 그룹 리스트 조회 - selectbox",
+            notes = "롤 그룹 리스트를 조회한다. - selectbox"
+    )
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "companyId", value = "회사 ID", required = false, dataType = "string", paramType = "query")
+    })
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "롤 그룹 리스트", response = ResGetRoleGroupSelectboxDTO.class)
+    })
+    @GetMapping("/selectbox")
+    @ResponseStatus(HttpStatus.OK)
+    public ResGetRoleGroupSelectboxDTO getRoleGroupSelectbox(@RequestParam(value = "companyId", required = false) Long companyId) {
+
+        return roleGroupService.getRoleGroupSelectbox(companyId);
     }
 }

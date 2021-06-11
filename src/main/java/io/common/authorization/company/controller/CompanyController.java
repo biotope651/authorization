@@ -3,6 +3,7 @@ package io.common.authorization.company.controller;
 import io.common.authorization.company.dto.request.ReqCompanyDTO;
 import io.common.authorization.company.dto.response.ResCreateCompanyDTO;
 import io.common.authorization.company.dto.response.ResGetCompanyDTO;
+import io.common.authorization.company.dto.response.ResGetCompanySelectBoxDTO;
 import io.common.authorization.company.dto.response.ResUpdateCompanyDTO;
 import io.common.authorization.company.service.CompanyService;
 import io.swagger.annotations.*;
@@ -89,5 +90,19 @@ public class CompanyController {
         long companyId = companyService.updateCompany(reqCompanyDTO);
 
         return new ResUpdateCompanyDTO(companyId);
+    }
+
+    @ApiOperation(
+            value = "회사 리스트 조회 - selectbox",
+            notes = "회사 리스트를 조회한다. - selectbox"
+    )
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "회사 리스트", response = ResGetCompanyDTO.class)
+    })
+    @GetMapping("/selectbox")
+    @ResponseStatus(HttpStatus.OK)
+    public ResGetCompanySelectBoxDTO getCompanySelectBox() {
+
+        return companyService.getCompanySelectBox();
     }
 }

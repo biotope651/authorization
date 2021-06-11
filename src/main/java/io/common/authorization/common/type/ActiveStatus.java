@@ -5,7 +5,9 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-import java.util.Arrays;
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * 활성 상태 Type
@@ -29,5 +31,17 @@ public enum ActiveStatus {
     @JsonValue
     public String getValue() {
         return value;
+    }
+
+    public static List<Map> getEnumToListMap() {
+        List<Map> resultList = new ArrayList<>();
+        for(ActiveStatus type : ActiveStatus.values()) {
+            HashMap<String, String> map = new HashMap<>();
+            map.put("value",type.getValue());
+            map.put("description",type.getDescription());
+            resultList.add(map);
+        }
+
+        return resultList;
     }
 }

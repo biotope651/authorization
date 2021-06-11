@@ -1,8 +1,10 @@
 package io.common.authorization.company.service;
 
+import io.common.authorization.common.type.ActiveStatus;
 import io.common.authorization.common.util.PageRequest;
 import io.common.authorization.company.dto.request.ReqCompanyDTO;
 import io.common.authorization.company.dto.response.ResGetCompanyDTO;
+import io.common.authorization.company.dto.response.ResGetCompanySelectBoxDTO;
 import io.common.authorization.company.entity.Company;
 import io.common.authorization.company.repository.CompanyRepository;
 import io.common.authorization.error.ErrorCode;
@@ -17,6 +19,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Slf4j
 @Service
@@ -106,4 +110,16 @@ public class CompanyService {
 
         return new ResGetCompanyDTO.GetCompany(company);
     }
+
+    /**
+     * 회사 리스트 조회
+     * @return
+     */
+    public ResGetCompanySelectBoxDTO getCompanySelectBox() {
+
+        List<Company> companyList = companyRepository.findByAvailableStatusOrderByCompanyName(ActiveStatus.ACTIVE);
+
+        return new ResGetCompanySelectBoxDTO(companyList);
+    }
+
 }

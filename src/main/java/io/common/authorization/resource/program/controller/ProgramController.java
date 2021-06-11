@@ -2,6 +2,7 @@ package io.common.authorization.resource.program.controller;
 
 import io.common.authorization.resource.program.dto.request.ReqProgramDTO;
 import io.common.authorization.resource.program.dto.response.ResCreateProgramDTO;
+import io.common.authorization.resource.program.dto.response.ResGetProgramSelectBoxDTO;
 import io.common.authorization.resource.program.dto.response.ResGetProgramsDTO;
 import io.common.authorization.resource.program.dto.response.ResUpdateProgramDTO;
 import io.common.authorization.resource.program.service.ProgramService;
@@ -73,4 +74,18 @@ public class ProgramController {
         return new ResUpdateProgramDTO(programId);
     }
 
+    //getProgramSelectBox
+    @ApiOperation(
+            value = "Program selectbox 리스트 조회",
+            notes = "Program selectbox 에서 사용하기 위한 리스트를 조회한다."
+    )
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "프로그램 리스트", response = ResGetProgramSelectBoxDTO.class)
+    })
+    @GetMapping("/selectbox")
+    @ResponseStatus(HttpStatus.OK)
+    public ResGetProgramSelectBoxDTO getProgramSelectbox() {
+
+        return programService.getProgramSelectBox();
+    }
 }

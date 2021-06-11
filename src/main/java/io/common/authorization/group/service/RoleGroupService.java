@@ -7,6 +7,7 @@ import io.common.authorization.error.ErrorCode;
 import io.common.authorization.error.ErrorException;
 import io.common.authorization.group.dto.request.ReqRoleGroupDTO;
 import io.common.authorization.group.dto.response.ResGetRoleGroupDTO;
+import io.common.authorization.group.dto.response.ResGetRoleGroupSelectboxDTO;
 import io.common.authorization.group.entity.RoleGroup;
 import io.common.authorization.group.repository.RoleGroupRepository;
 import io.common.authorization.resource.program.entity.Program;
@@ -21,6 +22,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Slf4j
 @Service
@@ -140,4 +143,25 @@ public class RoleGroupService {
 
         return new ResGetRoleGroupDTO.GetRoleGroups(roleGroup);
     }
+
+    /**
+     * 롤 그룹 리스트 조회
+     * @param companyId
+     * @return
+     */
+    public ResGetRoleGroupSelectboxDTO getRoleGroupSelectbox(Long companyId) {
+
+        List<RoleGroup> roleGroupList = null;
+
+        if (companyId != null) {
+            Company company = companyRepository.findById(companyId)
+                    .orElseThrow(() -> new ErrorException(ErrorCode.RESOURCE_ID_NOT_VALID));
+            roleGroupList = roleGroupRepository.findByCompanyOrderByRoleGroupName(company);
+        } else {
+            roleGroupList = roleGroupRepository.findByCompanyIsNullOrderByRoleGroupName();
+        }
+
+        return new ResGetRoleGroupSelectboxDTO(roleGroupList);
+    }
+
 }

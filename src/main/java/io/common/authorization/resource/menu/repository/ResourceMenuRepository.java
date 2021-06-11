@@ -1,5 +1,6 @@
 package io.common.authorization.resource.menu.repository;
 
+import io.common.authorization.common.type.Depth;
 import io.common.authorization.resource.menu.entity.ResourceMenu;
 import io.common.authorization.resource.program.entity.Program;
 import org.springframework.data.domain.Page;
@@ -14,4 +15,5 @@ import java.util.Optional;
 public interface ResourceMenuRepository extends JpaRepository<ResourceMenu, Long> {
     Page<ResourceMenu> findByProgram(Program program, Pageable pageable);
     List<ResourceMenu> findByProgram(Program program);
+    List<ResourceMenu> findByProgramAndMenuLevelOrderByMenuName(Program program, Depth depth);
 }

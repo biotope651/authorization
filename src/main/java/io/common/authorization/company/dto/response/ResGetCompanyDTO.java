@@ -25,7 +25,7 @@ public class ResGetCompanyDTO {
     @ApiModelProperty(value="전체 페이지")
     private int totalPage;
 
-    @ApiModelProperty(value="유저 리스트")
+    @ApiModelProperty(value="회사 리스트")
     private List<GetCompany> list = new ArrayList<>();
 
     public ResGetCompanyDTO(List<Company> list, int page, int size, int totalPage) {

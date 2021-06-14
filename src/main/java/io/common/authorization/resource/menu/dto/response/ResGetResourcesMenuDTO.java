@@ -44,6 +44,12 @@ public class ResGetResourcesMenuDTO {
         @ApiModelProperty(value="프로그램 ID", required = true)
         private Long programId;
 
+        @ApiModelProperty(value="프로그램 (한글)")
+        private String programNameKr;
+
+        @ApiModelProperty(value="프로그램 (영문)")
+        private String programNameEn;
+
         @ApiModelProperty(value="메뉴명", required = true)
         private String menuName;
 
@@ -63,18 +69,31 @@ public class ResGetResourcesMenuDTO {
         private String etc;
 
         @ApiModelProperty(value="상위 메뉴 ID")
-        private Long parent_menu_id;
+        private Long parentMenuId;
+
+        @ApiModelProperty(value="부모 메뉴명")
+        private String parentMenuName;
 
         public GetMenus(ResourceMenu resourceMenu) {
             this.id = resourceMenu.getId();
-            this.programId = resourceMenu.getProgram() == null ? null : resourceMenu.getProgram().getId();
+
+            if (resourceMenu.getProgram() != null) {
+                this.programId = resourceMenu.getProgram().getId();
+                this.programNameKr = resourceMenu.getProgram().getProgramNameKr();
+                this.programNameEn = resourceMenu.getProgram().getProgramNameEn();
+            }
+
             this.menuName = resourceMenu.getMenuName();
             this.menuUrl = resourceMenu.getMenuUrl();
             this.menuStatus = resourceMenu.getMenuStatus();
             this.menuLevel = resourceMenu.getMenuLevel();
             this.sort = resourceMenu.getSort();
             this.etc = resourceMenu.getEtc();
-            this.parent_menu_id = resourceMenu.getParent() == null ? null : resourceMenu.getParent().getId();
+
+            if(resourceMenu.getParent() != null) {
+                this.parentMenuId = resourceMenu.getParent().getId();
+                this.parentMenuName = resourceMenu.getParent().getMenuName();
+            }
         }
     }
 }

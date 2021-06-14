@@ -4,7 +4,6 @@ import io.common.authorization.common.type.ActiveStatus;
 import io.common.authorization.common.type.EntryType;
 import io.common.authorization.common.type.UserStatus;
 import io.common.authorization.common.type.UserType;
-import io.common.authorization.company.entity.Company;
 import io.common.authorization.company.entity.CompanyUser;
 import io.common.authorization.user.entity.User;
 import io.swagger.annotations.ApiModelProperty;
@@ -43,14 +42,23 @@ public class ResGetCompanyUsersDTO {
     @NoArgsConstructor(access = AccessLevel.PROTECTED)
     public static class GetCompanyUsers {
 
-        @ApiModelProperty(value="회사 ID")
+        @ApiModelProperty(value="회사 유저 ID")
         private Long id;
 
         @ApiModelProperty(value="유저 ID")
         private Long userId;
 
+        @ApiModelProperty(value="회사 ID")
+        private Long companyId;
+
+        @ApiModelProperty(value="회사명")
+        private String companyName;
+
         @ApiModelProperty(value="롤 그룹 ID")
         private Long roleGroupId;
+
+        @ApiModelProperty(value="롤 그룹명")
+        private String roleGroupName;
 
         @ApiModelProperty(value="로그인 ID", required = true)
         private String loginId;
@@ -79,6 +87,9 @@ public class ResGetCompanyUsersDTO {
         @ApiModelProperty(value="유저 Type", required = true)
         private UserType userType;
 
+        @ApiModelProperty(value="유저 Type명", required = true)
+        private String userTypeName;
+
         @ApiModelProperty(value="가입 방법", required = true)
         private EntryType entryType;
 
@@ -90,10 +101,22 @@ public class ResGetCompanyUsersDTO {
 
 
         public GetCompanyUsers(CompanyUser companyUser) {
-            this.id = companyUser.getCompany() == null ? null : companyUser.getCompany().getId();
+
+            this.id = companyUser.getId();
+
+            if (companyUser.getCompany() != null) {
+                this.companyId = companyUser.getCompany().getId();
+                this.companyName = companyUser.getCompany().getCompanyName();
+            }
+
             User user = companyUser.getUser() == null ? null : companyUser.getUser();
+
+            if (user.getRoleGroup() != null) {
+                this.roleGroupId = user.getRoleGroup().getId();
+                this.roleGroupName = user.getRoleGroup().getRoleGroupName();
+            }
+
             this.userId = user.getId();
-            this.roleGroupId = user.getRoleGroup() == null ? null : user.getRoleGroup().getId();
             this.loginId = user.getLoginId();
             this.name = user.getName();
             this.email = user.getEmail();
@@ -102,6 +125,7 @@ public class ResGetCompanyUsersDTO {
             this.userStatus = user.getUserStatus();
             this.accountStatus = user.getAccountStatus();
             this.userType = user.getUserType();
+            this.userTypeName = user.getUserType().getDescription();
             this.entryType = user.getEntryType();
             this.etc = user.getEtc();
             this.createDt = user.getCreateDt();

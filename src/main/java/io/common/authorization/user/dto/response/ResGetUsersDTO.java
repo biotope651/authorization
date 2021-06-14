@@ -10,6 +10,7 @@ import lombok.AccessLevel;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -74,6 +75,10 @@ public class ResGetUsersDTO {
         @ApiModelProperty(value="유저 Type", required = true)
         private UserType userType;
 
+        @ApiModelProperty(value="롤 유저 타입명")
+        @NotNull
+        private String userTypeName;
+
         @ApiModelProperty(value="가입 방법", required = true)
         private EntryType entryType;
 
@@ -94,6 +99,7 @@ public class ResGetUsersDTO {
             this.userStatus = user.getUserStatus();
             this.accountStatus = user.getAccountStatus();
             this.userType = user.getUserType();
+            this.userTypeName = user.getUserType().getDescription();
             this.entryType = user.getEntryType();
             this.etc = user.getEtc();
             this.createDt = user.getCreateDt();

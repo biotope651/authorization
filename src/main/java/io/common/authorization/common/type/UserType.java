@@ -16,7 +16,7 @@ public enum UserType {
     NOMAL("Nomal","일반 사용자"),
     COMPANY("Company", "회사 사용자"),
     COMPANY_ADMIN("Company-Admin", "회사 관리자"),
-    SUPER_ADMIN("Super-Admin","제공사 최고 관리자");
+    SUPER_ADMIN("Super-Admin","슈퍼 관리자");
 
     private String value;
     private String description;

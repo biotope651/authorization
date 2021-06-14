@@ -63,11 +63,24 @@ public class ResGetRoleGroupDTO {
         @NotNull
         private UserType roleUserType;
 
+        @ApiModelProperty(value="롤 유저 타입명")
+        @NotNull
+        private String roleUserTypeName;
+
         @ApiModelProperty(value="회사 ID")
         private Long companyId;
 
+        @ApiModelProperty(value="회사명")
+        private String companyName;
+
         @ApiModelProperty(value="프로그램 ID")
         private Long programId;
+
+        @ApiModelProperty(value="프로그램명 (한글)")
+        private String programNameKr;
+
+        @ApiModelProperty(value="프로그램명 (영문)")
+        private String programNameEn;
 
         @ApiModelProperty(value="생성일")
         private LocalDateTime createDt;
@@ -81,8 +94,15 @@ public class ResGetRoleGroupDTO {
             this.roleGroupStatus = roleGroup.getRoleGroupStatus();
             this.isDefault = roleGroup.getIsDefault();
             this.roleUserType = roleGroup.getRoleUserType();
-            this.companyId = roleGroup.getCompany() == null ? null : roleGroup.getCompany().getId();
-            this.programId = roleGroup.getProgram() == null ? null : roleGroup.getProgram().getId();
+            this.roleUserTypeName = roleGroup.getRoleUserType().getDescription();
+            if(roleGroup.getCompany() != null) {
+                this.companyId = roleGroup.getCompany().getId();
+            }
+            if(roleGroup.getProgram() != null) {
+                this.programId = roleGroup.getProgram().getId();
+                this.programNameKr = roleGroup.getProgram().getProgramNameKr();
+                this.programNameEn = roleGroup.getProgram().getProgramNameEn();
+            }
             this.createDt = roleGroup.getCreateDt();
             this.mngUserId = roleGroup.getMngUser() == null ? null : roleGroup.getMngUser().getId();
         }

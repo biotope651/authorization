@@ -54,6 +54,9 @@ public class ResGetCompanyDTO {
         @ApiModelProperty(value="사업자종류")
         private BusinessType businessType;
 
+        @ApiModelProperty(value="사업자종류명")
+        private String businessTypeName;
+
         @ApiModelProperty(value="대표자명")
         private String ceoName;
 
@@ -87,6 +90,7 @@ public class ResGetCompanyDTO {
             this.businessNo = company.getBusinessNo();
             this.businessUrl = company.getBusinessUrl();
             this.businessType = company.getBusinessType();
+            this.businessTypeName = company.getBusinessType().getDescription();
             this.ceoName = company.getCeoName();
             this.companyTel = company.getCompanyTel();
             this.fax = company.getFax();

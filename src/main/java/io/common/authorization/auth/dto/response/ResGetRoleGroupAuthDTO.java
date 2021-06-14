@@ -49,6 +49,9 @@ public class ResGetRoleGroupAuthDTO {
         @ApiModelProperty(value="회사 ID")
         private Long companyId;
 
+        @ApiModelProperty(value="회사명")
+        private String companyName;
+
         @ApiModelProperty(value="롤 그룹 권한 명")
         private String roleGroupAuthName;
 
@@ -64,13 +67,26 @@ public class ResGetRoleGroupAuthDTO {
         @ApiModelProperty(value="프로그램 ID")
         private Long programId;
 
+        @ApiModelProperty(value="프로그램 (한글)")
+        private String programNameKr;
+
+        @ApiModelProperty(value="프로그램 (영문)")
+        private String programNameEn;
+
         @ApiModelProperty(value="마지막 수정 유저 ID")
         private Long mngUserId;
 
         public GetRoleGroupAuth(RoleGroupAuth roleGroupAuth) {
             this.id = roleGroupAuth.getId();
-            this.companyId = roleGroupAuth.getCompany() == null ? null : roleGroupAuth.getCompany().getId();
-            this.programId = roleGroupAuth.getProgram() == null ? null : roleGroupAuth.getProgram().getId();
+            if (roleGroupAuth.getCompany() != null) {
+                this.companyId = roleGroupAuth.getCompany().getId();
+                this.companyName = roleGroupAuth.getCompany().getCompanyName();
+            }
+            if (roleGroupAuth.getProgram() != null) {
+                this.programId = roleGroupAuth.getProgram().getId();
+                this.programNameKr = roleGroupAuth.getProgram().getProgramNameKr();
+                this.programNameEn = roleGroupAuth.getProgram().getProgramNameEn();
+            }
             this.roleGroupAuthName = roleGroupAuth.getRoleGroupAuthName();
             this.roleGroupAuthStatus = roleGroupAuth.getRoleGroupAuthStatus();
             this.createDt = roleGroupAuth.getCreateDt();

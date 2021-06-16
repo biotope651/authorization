@@ -11,6 +11,7 @@ import io.common.authorization.user.entity.User;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
 
 /**
  * 롤 그룹 권한 테이블
@@ -38,6 +39,10 @@ public class RoleGroupAuth extends JpaEntityDateAudity {
     @Convert(converter = ActiveStatusConverter.class)
     private ActiveStatus roleGroupAuthStatus;
 
+    // 리소스 권한
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "roleGroupAuth")
+    private List<ResourceAuth> resourceAuths;
+
     // 프로그램
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="program_id")
@@ -53,4 +58,8 @@ public class RoleGroupAuth extends JpaEntityDateAudity {
         this.roleGroupAuthStatus = updateRoleGroupAuthDTO.getRoleGroupAuthStatus();
     }
 
+    public void clearAndCreateResourceAuth(List<ResourceAuth> resourceAuths) {
+        this.resourceAuths.clear();
+        this.resourceAuths.addAll(resourceAuths);
+    }
 }

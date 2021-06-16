@@ -1,6 +1,7 @@
 package io.common.authorization.auth.controller;
 
 import io.common.authorization.auth.dto.request.ReqResourceAuthDTO;
+import io.common.authorization.auth.dto.request.ReqResourceAuthListDTO;
 import io.common.authorization.auth.dto.request.ReqRoleGroupAuthDTO;
 import io.common.authorization.auth.dto.response.*;
 import io.common.authorization.auth.service.ResourceAuthService;
@@ -20,20 +21,34 @@ public class ResourceAuthController {
     private final ResourceAuthService resourceAuthService;
 
     @ApiOperation(
-            value = "리소스 권한 생성",
-            notes = "리소스 권한을 생성한다."
+            value = "리소스 권한 생성,수정",
+            notes = "리소스 권한을 생성/수정 한다."
     )
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "리소스 권한 ID", response = ResCreateResourceAuthDTO.class)
+            @ApiResponse(code = 200, message = "결과 값", response = Boolean.class)
     })
-    @PostMapping
+    @PostMapping("/array")
     @ResponseStatus(HttpStatus.OK)
-    public ResCreateResourceAuthDTO createResourceAuth(@Validated @RequestBody ReqResourceAuthDTO.CreateResourceAuthDTO reqResourceAuthDTO) {
+    public boolean createResourceAuthList(@Validated @RequestBody ReqResourceAuthListDTO reqResourceAuthDTO) {
 
-        long resourceAuthId = resourceAuthService.createResourceAuth(reqResourceAuthDTO);
-
-        return new ResCreateResourceAuthDTO(resourceAuthId);
+        return resourceAuthService.createResourceAuthList(reqResourceAuthDTO);
     }
+
+//    @ApiOperation(
+//            value = "리소스 권한 생성",
+//            notes = "리소스 권한을 생성한다."
+//    )
+//    @ApiResponses(value = {
+//            @ApiResponse(code = 200, message = "리소스 권한 ID", response = ResCreateResourceAuthDTO.class)
+//    })
+//    @PostMapping
+//    @ResponseStatus(HttpStatus.OK)
+//    public ResCreateResourceAuthDTO createResourceAuth(@Validated @RequestBody ReqResourceAuthDTO.CreateResourceAuthDTO reqResourceAuthDTO) {
+//
+//        long resourceAuthId = resourceAuthService.createResourceAuth(reqResourceAuthDTO);
+//
+//        return new ResCreateResourceAuthDTO(resourceAuthId);
+//    }
 
     @ApiOperation(
             value = "메뉴 리스트, 리소스 권한 리스트 조회",
@@ -56,19 +71,19 @@ public class ResourceAuthController {
         return resourceAuthService.getResourceAuth(userId, programId, roleGroupAuthId);
     }
 
-    @ApiOperation(
-            value = "리소스 권한 수정",
-            notes = "리소스 권한을 수정한다."
-    )
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "리소스 권한 ID", response = ResUpdateResourceAuthDTO.class)
-    })
-    @PutMapping
-    @ResponseStatus(HttpStatus.OK)
-    public ResUpdateResourceAuthDTO updateResourceAuth(@Validated @RequestBody ReqResourceAuthDTO.UpdateResourceAuthDTO reqResourceAuthDTO) {
-
-        long resourceAuthId = resourceAuthService.updateResourceAuth(reqResourceAuthDTO);
-
-        return new ResUpdateResourceAuthDTO(resourceAuthId);
-    }
+//    @ApiOperation(
+//            value = "리소스 권한 수정",
+//            notes = "리소스 권한을 수정한다."
+//    )
+//    @ApiResponses(value = {
+//            @ApiResponse(code = 200, message = "리소스 권한 ID", response = ResUpdateResourceAuthDTO.class)
+//    })
+//    @PutMapping
+//    @ResponseStatus(HttpStatus.OK)
+//    public ResUpdateResourceAuthDTO updateResourceAuth(@Validated @RequestBody ReqResourceAuthDTO.UpdateResourceAuthDTO reqResourceAuthDTO) {
+//
+//        long resourceAuthId = resourceAuthService.updateResourceAuth(reqResourceAuthDTO);
+//
+//        return new ResUpdateResourceAuthDTO(resourceAuthId);
+//    }
 }

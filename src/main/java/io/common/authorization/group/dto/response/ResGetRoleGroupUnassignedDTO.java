@@ -29,7 +29,7 @@ public class ResGetRoleGroupUnassignedDTO {
 
     @Data
     @NoArgsConstructor(access = AccessLevel.PROTECTED)
-    public static class GetRoleGroupUnAssignedJoin {
+    public static class GetRoleGroupUnAssignedJoin  extends ResGetRoleGroupJoinDTO.ResRoleGroupJoinWrapperDTO {
 
         @ApiModelProperty(value="롤 그룹 조인 ID")
         private Long id;

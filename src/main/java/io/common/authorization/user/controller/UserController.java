@@ -44,7 +44,7 @@ public class UserController {
 
     @ApiOperation(
             value = "유저 리스트 조회",
-            notes = "회사 하위에 등록되어 있는 유저 리스트를 조회한다."
+            notes = "유저 리스트를 조회한다."
     )
     @ApiImplicitParams({
             @ApiImplicitParam(name = "userType", value = "유저 타입", required = false, defaultValue = "Nomal", dataType = "string", paramType = "query"),

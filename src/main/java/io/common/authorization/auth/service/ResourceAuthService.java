@@ -1,13 +1,13 @@
 package io.common.authorization.auth.service;
 
 import io.common.authorization.auth.dto.request.ReqResourceAuthDTO;
+import io.common.authorization.auth.dto.request.ReqResourceAuthListDTO;
 import io.common.authorization.auth.dto.response.ResGetResourceAuthDTO;
 import io.common.authorization.auth.entity.ResourceAuth;
 import io.common.authorization.auth.entity.RoleGroupAuth;
 import io.common.authorization.auth.repository.ResourceAuthRepository;
 import io.common.authorization.auth.repository.RoleGroupAuthRepository;
 import io.common.authorization.common.type.UserType;
-import io.common.authorization.company.repository.CompanyRepository;
 import io.common.authorization.error.ErrorCode;
 import io.common.authorization.error.ErrorException;
 import io.common.authorization.resource.menu.entity.ResourceMenu;
@@ -35,14 +35,56 @@ public class ResourceAuthService {
     private final ResourceAuthRepository resourceAuthRepository;
     private final ResourceMenuRepository resourceMenuRepository;
     private final UserRepository userRepository;
-    private final CompanyRepository companyRepository;
     private final RoleGroupAuthRepository roleGroupAuthRepository;
     private final ProgramRepository programRepository;
 
     private final ModelMapper modelMapper;
 
+    @Transactional
+    public boolean createResourceAuthList(ReqResourceAuthListDTO reqResourceAuthDTO) {
+
+        RoleGroupAuth roleGroupAuth = roleGroupAuthRepository.findById(reqResourceAuthDTO.getRoleGroupAuthId())
+                .orElseThrow(() -> new ErrorException(ErrorCode.RESOURCE_ID_NOT_VALID));
+
+        // 프로그램 조회
+        Program program = programRepository.findById(reqResourceAuthDTO.getProgramId())
+                .orElseThrow(() -> new ErrorException(ErrorCode.RESOURCE_ID_NOT_VALID));
+
+        // 마지막 수정 유저
+        User user = null;
+        if (reqResourceAuthDTO.getMngUserId() != null) {
+            user = userRepository.findById(reqResourceAuthDTO.getMngUserId())
+                    .orElseThrow(() -> new ErrorException(ErrorCode.RESOURCE_ID_NOT_VALID));
+        }
+
+        List<ResourceAuth> resourceAuths = new ArrayList<>();
+
+        for ( ReqResourceAuthListDTO.CreateResourceAuthListDTO createResourceAuthDTO : reqResourceAuthDTO.getResourceAuthList() ) {
+
+            // 리소스 메뉴 조회
+            ResourceMenu resourceMenu = resourceMenuRepository.findById(createResourceAuthDTO.getResourceMenuId())
+                    .orElseThrow(() -> new ErrorException(ErrorCode.RESOURCE_ID_NOT_VALID));
+
+            ResourceAuth resourceAuth = new ResourceAuth(createResourceAuthDTO, program, resourceMenu, roleGroupAuth, user);
+            resourceAuth.setRoleGroupAuth(roleGroupAuth);
+            resourceAuths.add(resourceAuth);
+
+            resourceAuthRepository.save(resourceAuth);
+        }
+
+        /**
+         * TODO - Merge 처럼 동작하게 하기 위해 기존 생성되어있던 resourceAuth와 새롭게 생성할 resourceAuth를 비교하는 로직을 추가한다.
+         */
+
+//        roleGroupAuth.clearAndCreateResourceAuth(resourceAuths);
+//
+//        roleGroupAuthRepository.save(roleGroupAuth);
+
+        return true;
+    }
+
     /**
-     * 리소스 권한 생성
+     * 리소스 권한 생성 - 사용안함
      * @param reqResourceAuthDTO
      * @return
      */
@@ -85,7 +127,7 @@ public class ResourceAuthService {
     }
 
     /**
-     * 리소스 권한 수정
+     * 리소스 권한 수정 - 사용안함
      * @param reqResourceAuthDTO
      * @return
      */

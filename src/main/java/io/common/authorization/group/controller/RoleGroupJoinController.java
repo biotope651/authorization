@@ -12,6 +12,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Slf4j
 @RestController
 @RequiredArgsConstructor
@@ -25,15 +27,15 @@ public class RoleGroupJoinController {
             notes = "롤 그룹에 그룹 권한을 맵핑 후 ID 값을 Return 한다."
     )
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "롤 그룹 조인 ID", response = ResCreateRoleGroupJoinDTO.class)
+            @ApiResponse(code = 200, message = "롤 그룹 조인 ID", response = Boolean.class)
     })
     @PostMapping
     @ResponseStatus(HttpStatus.OK)
-    public ResCreateRoleGroupJoinDTO createRoleGroupJoin(@Validated @RequestBody ReqRoleGroupJoinDTO.CreateRoleGroupJoinDTO reqRoleGroupJoinDTO) {
+    public boolean createRoleGroupJoin(@Validated @RequestBody ReqRoleGroupJoinDTO reqRoleGroupJoinDTO) {
 
-        long roleGroupJoinId = roleGroupJoinService.createRoleGroupJoin(reqRoleGroupJoinDTO);
-
-        return new ResCreateRoleGroupJoinDTO(roleGroupJoinId);
+//        long roleGroupJoinId = roleGroupJoinService.createRoleGroupJoin(reqRoleGroupJoinDTO);
+//        return new ResCreateRoleGroupJoinDTO(roleGroupJoinId);
+        return roleGroupJoinService.createRoleGroupJoin(reqRoleGroupJoinDTO);
     }
 
     @ApiOperation(
@@ -60,7 +62,7 @@ public class RoleGroupJoinController {
             notes = "롤 그룹, 롤 그룹 권한 맵핑을 해제한다."
     )
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "id", value = "롤 그룹 조인 ID", required = false, dataType = "string", paramType = "query")
+            @ApiImplicitParam(name = "id", value = "롤 그룹 조인 ID", required = false, dataType = "string")
     })
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "성공/실패", response = Boolean.class)

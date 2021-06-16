@@ -1,5 +1,6 @@
 package io.common.authorization.code.controller;
 
+import io.common.authorization.code.controller.dto.ResCodeDTO;
 import io.common.authorization.common.type.ActiveStatus;
 import io.common.authorization.common.type.BusinessType;
 import io.common.authorization.common.type.Depth;
@@ -11,9 +12,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
-import java.util.Map;
 
 @Slf4j
 @RestController
@@ -30,8 +28,8 @@ public class CodeController {
     })
     @GetMapping("/active-status")
     @ResponseStatus(HttpStatus.OK)
-    public List<Map> getActiveStatus() {
-        return ActiveStatus.getEnumToListMap();
+    public ResCodeDTO getActiveStatus() {
+        return new ResCodeDTO(ActiveStatus.getEnumToListMap());
     }
 
     @ApiOperation(
@@ -43,8 +41,8 @@ public class CodeController {
     })
     @GetMapping("/business-type")
     @ResponseStatus(HttpStatus.OK)
-    public List<Map> getBusinessType() {
-        return BusinessType.getEnumToListMap();
+    public ResCodeDTO getBusinessType() {
+        return new ResCodeDTO(BusinessType.getEnumToListMap());
     }
 
     @ApiOperation(
@@ -56,8 +54,8 @@ public class CodeController {
     })
     @GetMapping("/menu-level")
     @ResponseStatus(HttpStatus.OK)
-    public List<Map> getDepthType() {
-        return Depth.getEnumToListMap();
+    public ResCodeDTO getDepthType() {
+        return new ResCodeDTO(Depth.getEnumToListMap());
     }
 
     @ApiOperation(
@@ -69,8 +67,8 @@ public class CodeController {
     })
     @GetMapping("/user-type")
     @ResponseStatus(HttpStatus.OK)
-    public List<Map> getUserType() {
-        return UserType.getEnumToListMap();
+    public ResCodeDTO getUserType() {
+        return new ResCodeDTO(UserType.getEnumToListMap());
     }
 
 }

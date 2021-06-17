@@ -48,38 +48,41 @@ public class ResGetUsersDTO {
         @ApiModelProperty(value="롤 그룹 ID")
         private Long roleGroupId;
 
-        @ApiModelProperty(value="로그인 ID", required = true)
+        @ApiModelProperty(value="롤 그룹명")
+        private String roleGroupName;
+
+        @ApiModelProperty(value="로그인 ID")
         private String loginId;
 
-        @ApiModelProperty(value="비밀번호", required = true)
+        @ApiModelProperty(value="비밀번호")
         private String password;
 
-        @ApiModelProperty(value="유저명", required = true)
+        @ApiModelProperty(value="유저명")
         private String name;
 
-        @ApiModelProperty(value="이메일", required = true)
+        @ApiModelProperty(value="이메일")
         private String email;
 
-        @ApiModelProperty(value="모바일", required = true)
+        @ApiModelProperty(value="모바일")
         private String mobile;
 
         @ApiModelProperty(value="연락처")
         private String tel;
 
-        @ApiModelProperty(value="사용자 상태", required = true)
+        @ApiModelProperty(value="사용자 상태")
         private UserStatus userStatus;
 
-        @ApiModelProperty(value="계정 상태", required = true)
+        @ApiModelProperty(value="계정 상태")
         private ActiveStatus accountStatus;
 
-        @ApiModelProperty(value="유저 Type", required = true)
+        @ApiModelProperty(value="유저 Type")
         private UserType userType;
 
         @ApiModelProperty(value="롤 유저 타입명")
         @NotNull
         private String userTypeName;
 
-        @ApiModelProperty(value="가입 방법", required = true)
+        @ApiModelProperty(value="가입 방법")
         private EntryType entryType;
 
         @ApiModelProperty(value="비고 (메모)")
@@ -90,7 +93,10 @@ public class ResGetUsersDTO {
 
         public GetUser(User user) {
             this.id = user.getId();
-            this.roleGroupId = user.getRoleGroup() == null ? null : user.getRoleGroup().getId();
+            if (user.getRoleGroup() != null) {
+                this.roleGroupId = user.getRoleGroup().getId();
+                this.roleGroupName = user.getRoleGroup().getRoleGroupName();
+            }
             this.loginId = user.getLoginId();
             this.name = user.getName();
             this.email = user.getEmail();

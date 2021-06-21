@@ -24,7 +24,7 @@ repositories {
             username project.nexusUsername
             password project.nexusPassword
         }
-        url project.nexusSnapshotUrl
+        url project.nexusReleaseUrl
     }
 }
 
@@ -97,7 +97,7 @@ dependencies {
     }
 
     // 공통 모듈
-    implementation group:'log.munzi', name:'munzi-log', version:'0.0.4-SNAPSHOT'
+    implementation group:'log.munzi', name:'munzi-log', version:'0.0.6'
 }
 
 test {

@@ -14,4 +14,7 @@ public interface RoleGroupJoinRepository extends JpaRepository<RoleGroupJoin,Lon
 
     // 회사 롤 그룹 권한 매칭 용도 : 매칭 된 롤 그룹 권한 리스트
     List<RoleGroupJoin> findByCompanyAndRoleGroup(Company company, RoleGroup roleGroup);
+
+    // 롤 그룹 권한 해제
+    Long deleteAllByIdIn(List<Long> ids);
 }

@@ -1,5 +1,6 @@
 package io.common.authorization.group.controller;
 
+import io.common.authorization.group.dto.request.ReqDeleteRoleGroupJoinDTO;
 import io.common.authorization.group.dto.request.ReqRoleGroupJoinDTO;
 import io.common.authorization.group.dto.response.ResCreateRoleGroupJoinDTO;
 import io.common.authorization.group.dto.response.ResGetRoleGroupDTO;
@@ -33,8 +34,6 @@ public class RoleGroupJoinController {
     @ResponseStatus(HttpStatus.OK)
     public boolean createRoleGroupJoin(@Validated @RequestBody ReqRoleGroupJoinDTO reqRoleGroupJoinDTO) {
 
-//        long roleGroupJoinId = roleGroupJoinService.createRoleGroupJoin(reqRoleGroupJoinDTO);
-//        return new ResCreateRoleGroupJoinDTO(roleGroupJoinId);
         return roleGroupJoinService.createRoleGroupJoin(reqRoleGroupJoinDTO);
     }
 
@@ -57,20 +56,18 @@ public class RoleGroupJoinController {
         return roleGroupJoinService.getRoleGroupJoin(companyId, roleGroupId);
     }
 
+
     @ApiOperation(
             value = "롤 그룹, 롤 그룹 권한 맵핑 해제",
             notes = "롤 그룹, 롤 그룹 권한 맵핑을 해제한다."
     )
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "id", value = "롤 그룹 조인 ID", required = false, dataType = "string")
-    })
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "성공/실패", response = Boolean.class)
     })
-    @DeleteMapping("/{id}")
+    @DeleteMapping
     @ResponseStatus(HttpStatus.OK)
-    public Boolean deleteRoleGroupAuthMapping(@Validated @PathVariable("id") Long roleGroupJoinId) {
-        return roleGroupJoinService.deleteRoleGroupJoin(roleGroupJoinId);
+    public Boolean deleteRoleGroupAuthMapping(@Validated @RequestBody ReqDeleteRoleGroupJoinDTO reqDeleteRoleGroupJoinDTO) {
+        return roleGroupJoinService.deleteRoleGroupJoin(reqDeleteRoleGroupJoinDTO);
     }
 
 }

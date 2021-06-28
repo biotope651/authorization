@@ -7,6 +7,7 @@ import io.common.authorization.company.entity.Company;
 import io.common.authorization.company.repository.CompanyRepository;
 import io.common.authorization.error.ErrorCode;
 import io.common.authorization.error.ErrorException;
+import io.common.authorization.group.dto.request.ReqDeleteRoleGroupJoinDTO;
 import io.common.authorization.group.dto.request.ReqRoleGroupJoinDTO;
 import io.common.authorization.group.dto.response.ResGetRoleGroupAssignedDTO;
 import io.common.authorization.group.dto.response.ResGetRoleGroupJoinDTO;
@@ -86,58 +87,23 @@ public class RoleGroupJoinService {
     }
 
     /**
-     * 롤 그룹 조인 매칭
-     * @param roleGroupJoinDTO
-     * @return
-     */
-//    @Transactional
-//    public Long createRoleGroupJoinOld(ReqRoleGroupJoinDTO.CreateRoleGroupJoinDTO roleGroupJoinDTO) {
-//
-//        RoleGroupJoin roleGroupJoin = new RoleGroupJoin();
-//
-//        // 롤 그룹 셋팅
-//        RoleGroup roleGroup = roleGroupRepository.findById(roleGroupJoinDTO.getRoleGroupId())
-//                .orElseThrow(() -> new ErrorException(ErrorCode.RESOURCE_ID_NOT_VALID));
-//        roleGroupJoin.setRoleGroup(roleGroup);
-//
-//        // 롤 그룹 권한 셋팅
-//        RoleGroupAuth roleGroupAuth = roleGroupAuthRepository.findById(roleGroupJoinDTO.getRoleGroupAuthId())
-//                .orElseThrow(() -> new ErrorException(ErrorCode.RESOURCE_ID_NOT_VALID));
-//        roleGroupJoin.setRoleGroupAuth(roleGroupAuth);
-//
-//        // 회사 셋팅
-//        if (roleGroupJoinDTO.getCompanyId() != null) {
-//            Company company = companyRepository.findById(roleGroupJoinDTO.getCompanyId())
-//                    .orElseThrow(() -> new ErrorException(ErrorCode.RESOURCE_ID_NOT_VALID));
-//            roleGroupJoin.setCompany(company);
-//        }
-//
-//        roleGroupJoinRepository.save(roleGroupJoin);
-//
-//        return roleGroupJoin.getId();
-//    }
-
-    /**
      * 롤 그룹 조인 해제
-     * @param roleGroupJoinId
+     * @param reqDeleteRoleGroupJoinDTO
      * @return
      */
     @Transactional
-    public boolean deleteRoleGroupJoin(Long roleGroupJoinId) {
+    public boolean deleteRoleGroupJoin(ReqDeleteRoleGroupJoinDTO reqDeleteRoleGroupJoinDTO) {
 
-        roleGroupJoinRepository.deleteById(roleGroupJoinId);
+        List<Long> ids = reqDeleteRoleGroupJoinDTO.getRoleGroupJoinList().stream().map(c->c.getId()).collect(Collectors.toList());
 
-        RoleGroupJoin roleGroupJoin = roleGroupJoinRepository.findById(roleGroupJoinId)
-                .orElse(null);
+        Long deleteCount = roleGroupJoinRepository.deleteAllByIdIn(ids);
 
-        boolean result = false;
-
-        // 조회된 데이터가 없으면 삭제된 것으로 판단하고 true를 리턴한다.
-        if (roleGroupJoin == null) {
-            result = true;
+        if(ids.size() != deleteCount) {
+            return false;
         }
 
-        return result;
+        return true;
+
     }
 
     /**
@@ -209,65 +175,4 @@ public class RoleGroupJoinService {
         return new ResGetRoleGroupJoinDTO(resGetRoleGroupAssignedDTO,resGetRoleGroupUnassignedDTO);
 
     }
-
-    /**
-     * 롤 그룹 권한 리스트 매칭 조회 - 롤 그룹 권한 매칭을 위한 리스트 조회
-     * @param companyId
-     * @param roleGroupId
-     * @return
-     */
-//    public ResGetRoleGroupJoinDTO getRoleGroupJoinOld(Long companyId, Long roleGroupId) {
-//
-//        // RoleGroup에 할당된 RoleGroupAuth List
-//        List<RoleGroupJoin> assignedRoleGroupJoinList = null;
-//        // RoleGroup에 할당되지 않은 RoleGroupAuth List
-//        List<RoleGroupAuth> unAssignedRoleGroupList = null;
-//
-//        // RoleGroup에 할당되지 않은 RoleGroupAuthId List
-//        List<Long> unAssignedRoleGroupAuthIds = null;
-//
-//        Company company = null;
-//
-//        RoleGroup roleGroup = roleGroupRepository.findById(roleGroupId)
-//                .orElseThrow(() -> new ErrorException(ErrorCode.RESOURCE_ID_NOT_VALID));
-//
-//        /**
-//         * Case 1 : 디폴트 롤 그룹 권한 매칭 용도
-//         * Case 2 : 회사별 롤 그룹 권한 매칭 용도
-//         */
-//        if (companyId == null && roleGroupId != null) {
-//            /**
-//             * Case 1. companyId (X), roleGroupId (O)
-//             * roleGroup에 할당된 롤 그룹 권한 리스트 1개
-//             * roleGroup에 할당되지 않은 롤 그룹 권한 리스트 1개
-//             */
-//            assignedRoleGroupJoinList = roleGroupJoinRepository.findByCompanyIsNullAndRoleGroup(roleGroup);
-//
-//            // 할당한 롤 그룹 권한 ID를 리스트로 가져온다.
-//            unAssignedRoleGroupAuthIds = assignedRoleGroupJoinList
-//                                                .stream().map(c -> c.getRoleGroupAuth().getId()).collect(Collectors.toList());
-//        } else if (companyId != null && roleGroupId != null) {
-//            /**
-//             * Case 2. companyId (O), roleGroupId (O)
-//             * roleGroup에 할당된 리스트 1개
-//             * roleGroup에 할당되지 않은 리스트 1개
-//             */
-//            company = companyRepository.findById(companyId)
-//                    .orElseThrow(() -> new ErrorException(ErrorCode.RESOURCE_ID_NOT_VALID));
-//
-//            assignedRoleGroupJoinList = roleGroupJoinRepository.findByCompanyAndRoleGroup(company, roleGroup);
-//
-//            // 할당한 롤 그룹 권한 ID를 리스트로 가져온다.
-//            unAssignedRoleGroupAuthIds = assignedRoleGroupJoinList
-//                    .stream().map(c -> c.getRoleGroupAuth().getId()).collect(Collectors.toList());
-//        }
-//
-//        // 할당되지 않은 롤 그룹 권한 리스트를 조회한다.
-//        unAssignedRoleGroupList = roleGroupAuthRepository.findByIdNotInAndCompany(unAssignedRoleGroupAuthIds, company);
-//
-//        ResGetRoleGroupAssignedDTO resGetRoleGroupAssignedDTO = new ResGetRoleGroupAssignedDTO(assignedRoleGroupJoinList);
-//        ResGetRoleGroupUnassignedDTO resGetRoleGroupUnassignedDTO = new ResGetRoleGroupUnassignedDTO(unAssignedRoleGroupList);
-//
-//        return new ResGetRoleGroupJoinDTO(resGetRoleGroupAssignedDTO,resGetRoleGroupUnassignedDTO);
-//    }
 }
